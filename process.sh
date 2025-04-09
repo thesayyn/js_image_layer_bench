@@ -1,0 +1,1 @@
+jq -c -s '. | map(select(.mnemonic == "JsImageLayer" or .mnemonic == "JsImageLayerGroups")) | map({total: .metrics.totalTime, mnemonic: .mnemonic,  output: ((.listedOutputs[0] | split("/")[-1]) | split(".")[0])})' $1

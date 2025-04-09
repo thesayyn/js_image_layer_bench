@@ -1,0 +1,18 @@
+"bench"
+
+
+bazel_dep(name = "aspect_rules_js", version = "2.2.0") # before
+# bazel_dep(name = "aspect_rules_js", version = "2.3.5") # after
+
+npm = use_extension(
+    "@aspect_rules_js//npm:extensions.bzl",
+    "npm",
+    dev_dependency = True,
+)
+npm.npm_translate_lock(
+    name = "npm",
+    pnpm_lock = "//:pnpm-lock.yaml",
+    # Don't care if packages actually work.
+    run_lifecycle_hooks = False,
+)
+use_repo(npm, "npm")

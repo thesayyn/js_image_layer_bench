@@ -1,0 +1,19 @@
+load("@aspect_rules_js//js:defs.bzl", "js_binary", "js_image_layer")
+load("@npm//:defs.bzl", "npm_link_all_packages")
+
+npm_link_all_packages(name = "node_modules")
+
+
+js_binary(
+    name = "main",
+    args = ["index.js"],
+    data = [
+        "//:node_modules"
+    ],
+    entry_point = "main.js",
+)
+
+js_image_layer(
+    name = "image",
+    binary = ":main",
+)
